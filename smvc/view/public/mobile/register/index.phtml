@@ -1,0 +1,22 @@
+<?
+	$this->view->set_css('public/css/mobile/login.css');
+	$this->view->set_js('public/js/login.js');
+	$this->view->display('includes/header');
+?>
+<form id="loginForm" name="loginForm" action="" method="post">
+	<input type="hidden" name="action" value="register" />
+	<? if ($result && $result['error'] == 1 && $result['message']) { ?>
+	<div id="red"><?= htmlspecialchars($result['message']); ?></div>
+	<? } ?>
+	<div id="login">
+		<div id="top">LOGO IMAGE</div>
+		<div id="fields">
+			<input id="username" name="username" type="text" class="text" placeholder="username" />
+			<input id="password" name="password" type="password" class="text" placeholder="password" />
+			<input id="password2" name="password2" type="password" class="text" placeholder="retype password" />
+		</div>
+		<div id="bottom"><input id="submit" name="submit" type="submit" value="Register" /></div>
+		<div id="info">Already have an account? <a href="<?= ROOT_URL; ?>login">Login</a></div>
+	</div>
+</form>
+<? $this->view->display('includes/footer'); ?>

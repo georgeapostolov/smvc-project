@@ -1,0 +1,1 @@
+<?	class controller_public_ajax extends base_controller {		public function __construct() {			parent::__construct();			header('Content-Type: application/json');		}		public function index() {		}	}

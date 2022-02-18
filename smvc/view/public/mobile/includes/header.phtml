@@ -1,0 +1,92 @@
+<html lang="en">
+	<head>
+		<title><?= $title; ?></title>
+		<meta charset="UTF-8">
+		<meta name="description" content="description" />
+		<meta name="keywords" content="keywords" />
+		<link rel="shortcut icon" type="image/x-icon" href="<?= ROOT_URL; ?>design/public/images/favicon.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="<?= ROOT_URL; ?>design/public/images/favicon-16x16.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="<?= ROOT_URL; ?>design/public/images/favicon-32x32.png">
+		<link rel="stylesheet" type="text/css" href="<?= ROOT_URL; ?>design/public/css/mobile/main.css?r=<?= CSSJS_REV; ?>" />
+<?
+			$css_files = $this->view->get_css();
+			foreach ($css_files as $css_file) {
+				$file = ROOT_URL . 'design/' . $css_file . '?r=' . CSSJS_REV;
+				echo "\t\t" . '<link rel="stylesheet" type="text/css" href="' . $file . '" />' . "\n";
+			}
+			$exclude_jquery = $this->get('exclude_jquery');
+			if (NULL == $exclude_jquery) {
+?>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="<?= ROOT_URL; ?>design/public/js/mobile/main.js?r=<?= CSSJS_REV; ?>"></script>
+<?
+			}
+			$js_files = $this->view->get_js();
+			foreach ($js_files as $js_file) {
+				if ($this->view->check_cssjs_is_internal_file($js_file)) {
+					$file = ROOT_URL . 'design/' . $js_file . '?r=' . CSSJS_REV;
+				} else {
+					$file = $js_file;
+				}
+				echo "\t\t" . '<script type="text/javascript" src="' . $file . '"></script>' . "\n";
+			}
+?>
+		<meta name="format-detection" content="telephone=no">
+		<meta name="HandheldFriendly" content="true">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-touch-fullscreen" content="yes"/>
+		<meta name="MobileOptimized" content="width" />
+		<meta http-equiv="cleartype" content="on" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#191919" />
+		<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="site">
+			<div id="menu">
+				<div id="menu_header">
+					<a href="javascript:;" id="menu_header_close_button"></a>
+					<a href="/" id="menu_logo">Site menu</a>
+				</div>
+				<div id="menu_wrapper" class="menu_wrapper">
+					<div id="menu_content">
+						<a href="<?= ROOT_URL; ?>" class="menu_item"><b><em class="menu_icon home"></em>Home</b></a>
+						<? if ($this->user->is_logged) { ?>
+						<a href="<?= ROOT_URL; ?>profile" class="menu_item"><b><em class="menu_icon home"></em>Profile</b></a>
+						<a href="<?= ROOT_URL; ?>chatbox" class="menu_item"><b><em class="menu_icon home"></em>Chatbox</b></a>
+						<? } ?>
+						<div class="klear"></div>
+					</div>
+					<div id="menu_userbox">
+						<? if ($this->user->is_logged) { ?>
+						<a href="<?= ROOT_URL; ?>logout" class="menu_userbox_action">Logout</a>
+						<? } else { ?>
+						<a href="<?= ROOT_URL; ?>login" class="menu_userbox_action">Login</a>
+						<a href="<?= ROOT_URL; ?>register" class="menu_userbox_action">Register</a>
+						<? } ?>
+					</div>
+				</div>
+			</div>
+			<div id="page">
+				<div id="header">
+					<a href="javascript:;" id="header_right_empty_button"></a>
+					<a href="javascript:;" id="header_menu_button"></a>
+					<div id="header_title">
+						<h1><?= $title; ?></h1>
+						<span id="header_subtitle"></span>
+					</div>
+				</div>
+				<a href="javascript:;" id="block"></a>
+				<div id="page_padding"><?
+	if (false) {
+?>
+				</div>
+			</div>
+		</div>
+<?
+	}
+?>

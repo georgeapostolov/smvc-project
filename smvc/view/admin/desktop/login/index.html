@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Login</title>
+		<meta name="description" content="description" />
+		<meta name="keywords" content="keywords" />
+		<link href="<?= ROOT_URL; ?>design/images/favicon.png" type="image/x-icon" rel="shortcut icon" />
+		<link rel="stylesheet" href="<?= ROOT_URL; ?>design/css/admin/login.css" />
+		<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="<?= ROOT_URL; ?>design/js/admin/login.js"></script>
+	</head>
+	<body>
+		<form id="loginForm" name="loginForm" action="" method="post">
+			<input type="hidden" name="action" value="login" />
+			<div id="login">
+				<div id="top"><img src="<?= ROOT_URL; ?>design/images/admin/bitcoin_login_logo.png" /></div>
+				<div id="fields">
+					<input id="username" name="username" type="text" class="text" />
+					<input id="password" name="password" type="password" class="text" />
+				</div>
+				<div id="bottom"><input id="submit" name="submit" type="submit" value="Login" /></div>
+			</div>
+			<? if ($result && $result['error'] == 1 && $result['message']) { ?> 
+			<div id="red"><?= htmlspecialchars($result['message']); ?></div>
+			<? } ?>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,3 @@
+<?
+	abstract class base_controller {
+		protected $_params = [];		public $user;		public $view;		public function __construct() {			$this->_params = base_router::$params;			$this->user = new base_user();			$this->view = new base_view();		}		abstract public function index();		public function get_param($key) {			return (isset($this->_params[$key]) ? $this->_params[$key] : null);		}		public function set_param($key, $value) {			$this->_params[$key] = $value;		}		public function __call($method, $arguments) {			array_unshift($this->_params, base_router::$action);			$this->index();		}		public function __get($key) {			return $this->get_param($key);		}		public function __set($key, $value) {			$this->set_param($key, $value);		}	}

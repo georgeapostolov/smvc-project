@@ -1,0 +1,89 @@
+body, html {
+	color: #000;
+	background-color: #191919;
+	font-size: 23px;
+	text-align: center;
+	font-family: Helvetica, Verdana;
+}
+
+#page_padding {
+	padding: 15px;
+}
+#login {
+
+}
+
+#top {
+    margin: 0 0 20px 0;
+	color: #00A5F1;
+	font-weight: bold;
+	line-height: 30px;
+	padding-top: 40px;
+}
+#top img {
+	width: 260px;
+	height: 260px;
+}
+
+.form_info {
+	padding: 20px 0;
+	color: #fff;
+	line-height: 40px;
+}
+
+#fields input {
+	width: 100%;
+	margin: 7px auto;
+	height: 30px;
+	border: 1px solid #444;
+	text-align: center;
+	padding: 10px;
+	font-size: 23px;
+	color: #066e90;
+	background: transparent;
+	min-height: 45px;
+}
+
+#fields input:focus, #fields input:active {
+	
+}
+
+#bottom {
+	padding: 30px;
+	height: 50px;
+}
+
+#red {
+	margin-bottom: 10px;
+	border: 1px solid #D09C9E;
+	color: #dc6764;
+	font-weight: bold;
+	font-size: 23px;
+	height: 26px;
+	padding: 12px;
+}
+
+.red {
+	background-color: #FEDEDF;
+}
+
+#submit {
+	padding: 10px 30px;
+	border: 0;
+	font-weight: bold;
+	font-size: 23px;
+	color: #dcdcdc;
+	background-color: #066e90;
+}
+
+#info {
+	color: #757575;
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+
+#info a {
+	text-decoration: none;
+	color: #dcdcdc;
+	font-size: 18px;
+}

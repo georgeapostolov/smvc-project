@@ -1,0 +1,20 @@
+<?
+	$this->view->set_css('public/css/mobile/login.css');
+	$this->view->display('includes/header');
+?>
+<form id="loginForm" name="loginForm" action="" method="post">
+	<input type="hidden" name="action" value="login" />
+	<div id="login">
+		<!-- <div id="top"></div> -->
+		<div id="fields">
+			<input id="username" name="username" type="text" class="text" placeholder="username" />
+			<input id="password" name="password" type="password" class="text" placeholder="password" />
+		</div>
+		<div id="bottom"><input id="submit" name="submit" type="submit" value="Login" /></div>
+		<div id="info">Don't have an account? <a href="<?= ROOT_URL; ?>register">Register</a></div>
+	</div>
+	<? if ($result && $result['error'] == 1 && $result['message']) { ?>
+	<div id="red"><?= htmlspecialchars($result['message']); ?></div>
+	<? } ?>
+</form>
+<? $this->view->display('includes/footer'); ?>

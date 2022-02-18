@@ -1,0 +1,1 @@
+<?	class controller_public_error extends base_controller {		public function __construct() {			parent::__construct();		}		public function index() {			$this->view->set('title', 'public error page');			$this->view->display('includes/header');			$this->view->display('error/index');			$this->view->display('includes/footer');		}	}

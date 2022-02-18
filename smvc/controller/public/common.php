@@ -1,0 +1,1 @@
+<?	class controller_public_common extends base_controller {		public function __construct() {			parent::__construct();		}		public function index() {		}	}

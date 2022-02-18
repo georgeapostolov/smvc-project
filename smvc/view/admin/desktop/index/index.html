@@ -1,0 +1,161 @@
+<? $this->view->display('includes/header'); ?>
+
+	<? if (empty($wallet)) { ?>
+	<div id="index_table" class="w960 m0a">
+		<h1><?= $user->data['username']; ?></h1>
+		<p class="center">Before you can see the main table, please add some coins to the <a href="<?= ROOT_URL; ?>admin/wallet">wallert</a> first.</p>
+	</div>
+	<? } else { ?>
+	<div id="index_table">
+		<h1><?= $user->data['username']; ?> &middot; <span>update prices!</span></h1>
+		<table>
+			<thead>
+				<tr>
+					<th class="center col w200">Name</th>
+					<th class="center col">Symbol</th>
+					<th class="col">Owned</th>
+					<th class="col">Sum USD</th>
+					<th class="col">Sum BTC</th>
+					<th class="col">Target</th>
+					<th class="col">Target Sum USD</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?
+			
+			$use_new_target_system = ($user->id == 1);
+			$targets_btc = 0;
+			if ($use_new_target_system) {
+				$targets = array_keys($wallet);
+				foreach ($targets as $tk => $tv) if ($tv == 'BTC') unset($targets[$tk]);
+				$targets_count_all = count($targets);
+				$targets_btc = 1 / $targets_count_all;
+			}
+
+			$owned_sum = 0;
+			$owned_btc_sum = 0;
+			$target_sum = 0;
+			$all_count = 0;
+			$reached_count = 0;
+			$orange_sum = 0;
+			$percent = 0;
+			$funds_sum = 0;
+
+			foreach ($wallet as $symbol => $wallet_data) {
+				$wallet_data['target'] = $target_data[$symbol]['target'];
+				$orange_sum += ($wallet_data['target'] * $coin_prices[$symbol]['price_usd']);
+			}
+			if (!empty($wallet)) {
+				$orange_sum = $orange_sum / count($wallet) / 2;
+			}
+
+			foreach ($funds as $fund) {
+				$funds_sum += $fund['amount'];
+			}
+
+			?>
+			<? foreach ($wallet as $symbol => $wallet_data) { ?>
+				<?
+				$wallet_data['target'] = $target_data[$symbol]['target'];
+			$wb_sum = ($wallet_data['amount'] * $coin_prices[$symbol]['price_btc']);
+			$target_sum_btc_reached = ($targets_btc <= $wb_sum);
+			$owned_btc_sum += $wb_sum;
+			if (!$target_sum_btc_reached && $symbol != 'BTC') {
+				$target_needed = $targets_btc / $coin_prices[$symbol]['price_btc'];
+				//$target_needed = ($targets_btc - $wb_sum) / $coin_prices[$symbol]['price_btc'];
+				$wallet_data['target'] = $target_needed;
+			}
+
+			$target_reached = ($wallet_data['target'] <= $wallet_data['amount']);
+			$all_count += 1;
+			$reached_count += (int)$target_reached;
+			$wd_sum = ($wallet_data['amount'] * $coin_prices[$symbol]['price_usd']);
+			$td_sum = ($wallet_data['target'] * $coin_prices[$symbol]['price_usd']);
+			$owned_sum += $wd_sum;
+			$target_sum += $td_sum;
+			$ec = ($wallet_data['target'] - $wallet_data['amount']);
+			$ec = ((0.18 / 100) * $ec) + $ec; // ADD 18%
+			$ea = $ec * $coin_prices[$symbol]['price_usd'];
+
+			$percent = ($reached_count / $all_count) * 100;
+			$percent_amount = min(($wd_sum / max(1, $td_sum)) * 100, 100);
+			if ($all_count) {
+				$percent = ($reached_count / $all_count) * 100;
+			}
+
+			$inverted_icon = false;
+			if ($symbol == 'GNT' || $symbol == 'ZEC' || $symbol == 'CRW') {
+				$inverted_icon = true;
+			}
+
+			$tooltip = array();
+			foreach ($wallet_data['sites'] as $sid => $sam) {
+				$tooltip[] = '<p>' . $sites[$sid]['name'] . ': ' . $sam['amount'] . '</p>';
+			}
+
+			?>
+				<tr class="<?= ($target_reached ? 'reached' : ''); ?>">
+					<th class="row bold center w200">
+						<span class="hidden_value"><?= $coin_prices[$symbol]['name']; ?></span>
+						<span class="coin_name"><a href="<?= ROOT_URL; ?>stats/#stat_<?= $symbol; ?>" target="_blank" class="icon<?= ($inverted_icon ? ' inverted' : ''); ?>" style="background: transparent url('<?= ROOT_URL; ?>design/icons/<?= strtolower($symbol); ?>.png') 0 0 / cover no-repeat;"></a><?= $coin_prices[$symbol]['name']; ?></span>
+					</th>
+					<td class="bold center w150">
+						<span class="hidden_value"><?= $symbol; ?></span>
+						<?= $symbol; ?>
+					</td>
+					<td class="tooltip">
+						<span class="hidden_value"><?= $wallet_data['amount']; ?></span>
+						<?
+							$n = $wallet_data['amount'];
+							$whole = floor($n);      // 1
+							$fraction = $n - $whole; // .25
+							if ($fraction) {
+								echo number_format($wallet_data['amount'], 8, '.', ' ');
+							} else {
+								echo $whole;
+							}
+						?>
+						<div class="tooltip"></div>
+						<em class="target_hover tooltip"><?= implode("", $tooltip); ?></em>
+					</td>
+					<td>
+						<span class="hidden_value"><?= $wd_sum; ?></span>
+						<?= number_format($wd_sum, 2, '.', ' '); ?>
+					</td>
+					<td class="<?= ($use_new_target_system ? ($target_sum_btc_reached ? 'green' : 'red') : ''); ?>">
+						<span class="hidden_value"><?= $wb_sum; ?></span>
+						<?= number_format($wb_sum, 8, '.', ' '); ?>
+					</td>
+					<td class="no-padding bigger">
+						<span class="hidden_value"><?= $wallet_data['target']; ?></span>						
+						<div class="percent-bar">
+							<div class="p10 <?= ($target_reached ? 'green' : 'red'); ?>">
+								<?= number_format($wallet_data['target'], 0, '.', ' '); ?>
+								<?= ($wallet_data['amount'] < $wallet_data['target'] ? '<em class="target_hover">' . number_format($ec, 8, '.', '') . '<br />$' . number_format($ea, 8, '.', '') . '</em>' : ''); ?>
+							</div>
+							<? if ($wallet_data['amount'] < $wallet_data['target']) { ?>
+							<em style="background: rgba(50, 50, 50, <?= number_format($percent_amount / 100, 1, '.', ''); ?>); width:<?= number_format($percent_amount, 0, '.', ''); ?>%;">&nbsp;</em>
+							<? } ?>
+						</div>
+					</td>
+					<td class="<?= ($td_sum > $orange_sum ? 'orange' : ''); ?>">
+						<span class="hidden_value"><?= $td_sum; ?></span>
+						<?= number_format($td_sum, 2, '.', ' '); ?>
+					</td>
+				</tr>
+				<? } ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class="center" colspan="3"><?= ($funds_sum ? '$' . number_format($owned_sum - $funds_sum, 2, '.', '') . ' profit' : '<a href="' . ROOT_URL . 'admin/funds">Add funds to calculate profit</a>'); ?></td>
+					<td><?= number_format($owned_sum, 2, '.', ' '); ?></td>
+					<td><?= number_format($owned_btc_sum, 8, '.', ' '); ?></td>
+					<td class="no-padding center"><div class="percent-bar"><?= $reached_count . ' / ' . $all_count . ' (' . number_format($percent, 2, '.', ''); ?>%)<em style="background: rgba(50, 50, 50, <?= number_format($percent / 100, 1, '.', ''); ?>); width:<?= $percent; ?>%;">&nbsp;</em></div></td>
+					<td><?= number_format($target_sum, 2, '.', ' '); ?></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<? } ?>
+
+<? $this->view->display('includes/footer'); ?>

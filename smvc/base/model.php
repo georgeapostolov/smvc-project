@@ -1,0 +1,1 @@
+<?	abstract class base_model {		protected $db;		public function __construct() {			$this->db = new base_db(DB_HOST, DB_USER, DB_PASS, DB_NAME);		}	}

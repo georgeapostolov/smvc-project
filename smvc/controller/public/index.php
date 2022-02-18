@@ -1,0 +1,1 @@
+<?	class controller_public_index extends base_controller {		public function __construct() {			parent::__construct();		}		public function index() {			$this->view->set('title', 'Home');			$this->view->set('user', $this->user);			$this->view->display('index/index');		}	}

@@ -1,0 +1,52 @@
+<html lang="en">
+	<head>
+		<title><?= $title; ?></title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="<?= ROOT_URL; ?>design/public/css/main.css?r=<?= CSSJS_REV; ?>" />
+<?
+			$css_files = $this->view->get_css();
+			foreach ($css_files as $css_file) {
+				$file = ROOT_URL . 'design/' . $css_file . '?r=' . CSSJS_REV;
+				echo "\t\t" . '<link rel="stylesheet" type="text/css" href="' . $file . '" />' . "\n";
+			}
+			$exclude_jquery = $this->get('exclude_jquery');
+			if (NULL == $exclude_jquery) {
+?>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<?
+			}
+			$js_files = $this->view->get_js();
+			foreach ($js_files as $js_file) {
+				if ($this->view->check_cssjs_is_internal_file($js_file)) {
+					$file = ROOT_URL . 'design/' . $js_file . '?r=' . CSSJS_REV;
+				} else {
+					$file = $js_file;
+				}
+				echo "\t\t" . '<script type="text/javascript" src="' . $file . '"></script>' . "\n";
+			}
+?>
+	</head>
+	<body>
+		<div id="site_wrapper">
+			<section id="site_header">
+				<div class="center">
+					<nav>
+						<div id="site_top_menu">
+							<a href="<?= ROOT_URL; ?>">Home</a>
+							<? if ($this->user->is_logged) { ?>
+							<a href="<?= ROOT_URL; ?>profile">Profile</a>
+							<a href="<?= ROOT_URL; ?>chatbox">Chatbox</a>
+							<a href="<?= ROOT_URL; ?>logout">Logout</a>
+							<? } else { ?>
+							<a href="<?= ROOT_URL; ?>login">Login</a>
+							<a href="<?= ROOT_URL; ?>register">Register</a>
+							<? } ?>
+						</div>
+						<? if ($this->user->is_logged) { ?>
+						<div id="site_top_username" style="position: absolute; right: 0; top: 6px;">Logged in as: <?= $this->user->data['username']; ?></div>
+						<? } ?>
+					</nav>
+				</div>
+			</section>
+			<section id="site_content">
+				<div class="center">

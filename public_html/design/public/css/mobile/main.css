@@ -1,0 +1,339 @@
+body {
+    margin: 0px;
+    padding: 0px;
+	color: #b5b5b5;
+    background: #36393f;
+	font-family: Verdana, Open Sans, Arial, Helvetica Neue, Helvetica, Sans-Serif;
+	font-size: 12px;
+	line-height: 17px;
+}
+a {
+	color: #b5b5b5;
+	text-decoration: none;
+}
+a:hover {
+	color: #a0a0a0;
+}
+#site {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#menu {
+	display: none;
+	background: #1f1f1f;
+	width: 100%;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	z-index: 9999;
+	min-height: 100%;
+}
+
+#menu_header {
+	height: 43px;
+	z-index: 1;
+}
+#menu_header a {
+	touch-action: manipulation;
+}
+#menu_logo {
+    display: block;
+    float: left;
+    margin-left: 18px;
+    margin-top: 11px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
+#menu_header_close_button {
+	display: block;
+	float: right;
+	width: 42px;
+	height: 40px;
+	margin-top: 3px;
+	background: url('/design/public/images/mobile/menu_close.png') no-repeat;
+	background-size: 18px;
+	background-position: center center;
+}
+
+#menu_wrapper {
+	z-index: 101;
+	width: 100%;
+	height: auto;
+	overflow: scroll;
+	border-right: 1px solid #000;
+}
+
+#menu_content {
+	overflow: visible;
+}
+#menu_content .menu_item {
+	display: block;
+	background: #1f1f1f;
+	border-bottom: 1px solid #131313;
+	text-align: left;
+	height: 42px;
+	padding-left: 10px;
+	padding-right: 14px;
+	position: relative;
+	clear: both;
+	text-decoration: none;
+}
+#menu_content .menu_item.active {
+    background: #161616;
+}
+#menu_content .menu_item.active:before {
+	content:"";
+	display:block;
+	width:1px;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	border-left:2px solid #138adb;
+	background:#0986db;
+}
+#menu_content .menu_item b {
+    display: block;
+    float: left;
+    font-family: arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fefefe;
+    line-height: 43px;
+}
+
+em.menu_icon {
+    display: block;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 7px;
+}
+em.menu_icon.home {
+}
+em.menu_icon.profile {
+}
+
+#menu_content .menu_subitem {
+	display: block;
+	height: 26px;
+	background: #262626;
+	border-bottom: 1px solid #1d1d1d;
+	border-left:2px solid #1f1f1f;
+	padding-left: 50px;
+	text-align: left;
+	line-height: 26px;
+	color: #8e8e8e;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	position:relative;
+	clear:both;
+	text-decoration: none;
+}
+#menu_content .menu_subitem:active,
+#menu_content .menu_subitem.activated {
+	background: #282828;
+	border-left: 2px solid #138adb;
+}
+
+#menu_userbox {
+	text-align:left;
+	padding:15px 16px 0;
+	height:47px;
+}
+.menu_userbox_action {
+	display:block;
+	float:left;
+	background: #666;
+	box-shadow:0px 1px 2px rgba(0, 0, 0, .75);
+	border-radius:3px;
+	padding:0 10px;
+	font-family: arial, sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	color:#fff;
+	text-shadow:0px 1px 1px rgba(0, 0, 0, .61);
+	height:31px;
+	line-height:28px;
+	border-top:1px solid #959595;
+	margin-right:10px;
+	opacity:.36;
+	text-decoration: none;
+}
+#menu_userbox_username {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: arial, sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	color:#606060;
+	text-shadow:0px 1px 1px rgba(0, 0, 0, .61);
+	height:31px;
+	line-height:28px;
+	padding-top:1px;
+	padding-left:4px;
+	text-decoration: none;
+}
+
+#header {
+	text-align: center;
+	width: 100%;
+	height: 44px;
+}
+#header a {
+	touch-action: manipulation;
+}
+
+#header_right_button {
+    background: url(/design/menu_sort_new_grey.png) 16px 13px no-repeat;
+    width: 52px;
+    height: 43px;
+    cursor: pointer;
+    float: right;
+    background-size: 18px 18px;
+}
+#header_right_empty_button {
+    width: 52px;
+    height: 43px;
+    float: right;
+}
+#header_menu_button {
+	background: url('/design/public/images/mobile/menu.png') 16px 13px no-repeat;
+	width: 52px;
+	height: 43px;
+	cursor: pointer;
+	float: left;
+	background-size: 18px;
+	background-position: center center;
+}
+
+#header_title {
+    display: block;
+    overflow: hidden;
+    width: auto;
+    padding-top: 8px;
+    padding-bottom: 10px;
+}
+#header_title h1 {
+    font-family: arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: white;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 24px;
+	padding: 0 5px;
+	margin: 0;
+}
+#header_subtitle {
+    display: none;
+    font-family: arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #cfe3f4;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, .6);
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#page {
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+#block {
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background: transparent;
+	z-index: 99;
+	background: #1F1F1F;
+}
+
+#page_padding {
+	padding: 10px;
+}
+#coin_dashboard th {
+    font-size: 16px;
+}
+#coin_dashboard td {
+	font-size: 18px;
+}
+
+td em.target_hover {
+    display: none;
+    color: #ccc;
+    font-size: 22px;
+    position: absolute;
+    bottom: 10px;
+    font-style: normal;
+    text-align: left;
+}
+td.bigger em.target_hover {
+    display: none;
+    left: 10px;
+    line-height: 16px;
+    top: 12px;
+    z-index: 2;
+    background: transparent;
+    font-size: 12px;
+}
+td.bigger div.percent-bar {
+	line-height: 20px;
+	font-size: 26px;
+}
+span.sum_amount {
+	font-size: 12px;
+}
+span.sum_amount_target {
+	font-size: 12px;
+}
+.pagination {
+	background: rgba(0, 0, 0, 0.1);
+	border: 1px solid #404040;
+	width: 100%;
+	text-align: center;
+}
+.pagination a {
+	display: inline-block;
+    min-width: 20px;
+    height: 33px;
+    border-right: 1px solid #404040;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+}
+.pagination a:hover {
+    background: rgba(255, 255, 255, 0.3);
+	color: #fff;
+}
+.pagination a.on {
+	color: #fff;
+    background: rgba(255, 255, 255, 0.3);
+}
+.pagination a b {
+    display: block;
+    font-size: 18px;
+    font-family: arial, sans-serif;
+    color: #2b8ed3;
+    text-align: center;
+    height: 33px;
+    line-height: 33px;
+    font-weight: normal;
+}
+.pagination a:hover b {
+    color: #005690;
+}
